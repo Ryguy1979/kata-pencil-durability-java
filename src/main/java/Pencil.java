@@ -1,5 +1,9 @@
 public class Pencil {
     public int write(char characterToWrite) {
-        return 2;
+        if (Character.isUpperCase(characterToWrite)) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 }
