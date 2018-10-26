@@ -41,4 +41,9 @@ class PencilTest {
     void writingThisIsASentenceForNineteenDurabilityPoints() {
         assertEquals(19, pencil.write("This Is A Sentence"));
     }
+
+    @Test
+    void pencilStartsWithFortyThousandDurability() {
+        assertEquals(40000, new Pencil().getPencilDurability());
+    }
 }
