@@ -10,6 +10,10 @@ class Paper {
     }
 
     void writeText(String textToWrite) {
-        this.setText(String.valueOf(new StringBuilder(this.text).append(" ").append(textToWrite)));
+        if (this.text == null) {
+            this.setText(textToWrite);
+        } else {
+            this.setText(String.valueOf(new StringBuilder(this.text).append(" ").append(textToWrite)));
+        }
     }
 }
