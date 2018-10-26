@@ -1,11 +1,15 @@
-public class Paper {
+class Paper {
     private String text;
 
-    public void setText(String text) {
+    void setText(String text) {
         this.text = text;
     }
 
-    public String getText() {
+    String getText() {
         return text;
+    }
+
+    void writeText(String textToWrite) {
+        this.setText(String.valueOf(new StringBuilder(this.text).append(" ").append(textToWrite)));
     }
 }
