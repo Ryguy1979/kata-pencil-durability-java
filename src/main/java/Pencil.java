@@ -1,7 +1,5 @@
 class Pencil {
 
-
-
     private int pencilLength;
     private int pencilDurability;
 

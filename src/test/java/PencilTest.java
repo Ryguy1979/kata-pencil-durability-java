@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PencilTest {
 
@@ -150,5 +151,12 @@ class PencilTest {
         pencil.edit("apple", "ARtichoke", paper);
 
         assertEquals("An ARt   @ @ay keeps the doctor away", paper.getText());
+    }
+
+    @Test
+    void eraserThrowsExceptionWhenWordToEraseNotFound() {
+        paper.setText("Buffalo Bil");
+
+        assertThrows(Exception.class, () -> pencil.edit("Bill", "Bull", paper));
     }
 }
