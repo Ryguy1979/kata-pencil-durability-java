@@ -1,4 +1,6 @@
 class PencilConstants {
+    static final char COLLISION_CHARACTER = '@';
+    
     static final int DEFAULT_PENCIL_DURABILITY = 40000;
 
     static final int UPPERCASE_DURABILITY_VALUE = 2;

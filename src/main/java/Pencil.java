@@ -1,4 +1,4 @@
-public class Pencil {
+class Pencil {
 
 
 
@@ -9,13 +9,6 @@ public class Pencil {
         pencilDurability = PencilConstants.DEFAULT_PENCIL_DURABILITY;
         pencilLength = PencilConstants.DEFAULT_PENCIL_LENGTH;
     }
-
-//    long write(String charactersToWrite) {
-//        long upperCount = charactersToWrite.chars().filter(Character::isUpperCase).count();
-//        long lowerCount = charactersToWrite.chars().filter(Character::isLowerCase).count();
-//
-//        return (lowerCount * LOWERCASE_DURABILITY_VALUE) + (upperCount * UPPERCASE_DURABILITY_VALUE);
-//    }
 
     int getPencilLength() {
         return pencilLength;
@@ -56,22 +49,61 @@ public class Pencil {
         paper.writeText(writtenCharacter);
     }
 
-    private StringBuilder replaceTextWithWhitespace(String text, long durabilityToWrite) {
-        int startWhitespaceReplacement = text.length() - ((int)durabilityToWrite - pencilDurability);
-        int endWhitespaceReplacement = text.length();
-
-        return new StringBuilder(text).replace(startWhitespaceReplacement, endWhitespaceReplacement, " ");
-    }
-
-    public int write(char characterToWrite) {
-        return 0;
-
-    }
-
     void sharpen() {
         if (getPencilLength() != 0) {
             setPencilDurability(40000);
             setPencilLength(getPencilLength() - 1);
         }
+    }
+
+    void edit(String originalWord, String replacementWord, Paper paper) throws Exception {
+        String stringToModify = paper.getText();
+        int startReplacement = stringToModify.lastIndexOf(originalWord);
+
+        if (startReplacement == -1) {
+            throw new Exception("Word to replace not found");
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(stringToModify, 0, startReplacement);
+
+        if (replacementWord.length() <= originalWord.length()) {
+            builder.append(replacementWord);
+            paper.setText(String.valueOf(builder.append(stringToModify.substring(startReplacement + replacementWord.length()))));
+        } else {
+            builder.append(replaceWordWithCollision(originalWord, replacementWord,
+                    stringToModify.substring(startReplacement, startReplacement + replacementWord.length())));
+            paper.setText(String.valueOf(builder.append(stringToModify.substring(startReplacement + replacementWord.length()))));
+        }
+    }
+
+    private char[] replaceWordWithCollision(String originalWord, String replacementWord, String originalStringToEdit) {
+        char[] returnedChars = originalStringToEdit.toCharArray();
+
+        for (int i = 0; i < originalWord.length(); i++) {
+            if (pencilDurability >= calculateCharacterCost(replacementWord.toCharArray()[i])) {
+                returnedChars[i] = replacementWord.toCharArray()[i];
+            } else {
+                returnedChars[i] = ' ';
+            }
+
+            pencilDurability -= calculateCharacterCost(replacementWord.toCharArray()[i]);
+        }
+
+        for (int i = originalWord.length(); i < originalStringToEdit.length(); i++) {
+            if (Character.isWhitespace(originalStringToEdit.toCharArray()[i])
+                    && pencilDurability >= calculateCharacterCost(replacementWord.toCharArray()[i])) {
+                returnedChars[i] = replacementWord.toCharArray()[i];
+            } else if (Character.isWhitespace(originalStringToEdit.toCharArray()[i])) {
+                returnedChars[i] = ' ';
+            } else {
+                returnedChars[i] = PencilConstants.COLLISION_CHARACTER;
+            }
+
+            pencilDurability -= calculateCharacterCost(replacementWord.toCharArray()[i]);
+        }
+
+        return returnedChars;
     }
 }

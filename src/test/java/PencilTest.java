@@ -117,4 +117,38 @@ class PencilTest {
 
         assertEquals("Text", paper.getText());
     }
+
+    @Test
+    void pencilEditsAppleWithOnion() throws Exception {
+        paper.setText("An apple a day keeps the doctor away");
+        pencil.edit("apple", "onion", paper);
+
+        assertEquals("An onion a day keeps the doctor away", paper.getText());
+    }
+
+    @Test
+    void pencilEditsAppleWithArtichoke() throws Exception {
+        paper.setText("An apple a day keeps the doctor away");
+        pencil.edit("apple", "artichoke", paper);
+
+        assertEquals("An artich@k@ay keeps the doctor away", paper.getText());
+    }
+
+    @Test
+    void pencilEditsAppleWithArtichokeAndFiveDurability() throws Exception {
+        pencil.setPencilDurability(5);
+        paper.setText("An apple a day keeps the doctor away");
+        pencil.edit("apple", "artichoke", paper);
+
+        assertEquals("An artic @ @ay keeps the doctor away", paper.getText());
+    }
+
+    @Test
+    void pencilEditsAppleWithArtichokeAndFiveDurabilityAndCapitals() throws Exception {
+        pencil.setPencilDurability(5);
+        paper.setText("An apple a day keeps the doctor away");
+        pencil.edit("apple", "ARtichoke", paper);
+
+        assertEquals("An ARt   @ @ay keeps the doctor away", paper.getText());
+    }
 }
