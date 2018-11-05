@@ -30,7 +30,7 @@ Then, open a command prompt to where you desire this kata to create its director
 git clone https://github.com/Ryguy1979/kata-pencil-durability-java.git
 ```
 
-Now, navigate to the directory just created by the above clone operation and type the following:
+Now, still on the command line, navigate to the directory just created by the above clone operation and type the following:
 
 ```
 mvn test
