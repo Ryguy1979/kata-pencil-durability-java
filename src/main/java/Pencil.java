@@ -45,7 +45,7 @@ public class Pencil {
     }
 
     private int calculateCharacterCost(Character writtenCharacter) {
-        if (writtenCharacter.equals(' ')) {
+        if (Character.isWhitespace(writtenCharacter)) {
             return PencilConstants.WHITESPACE_DURABILITY_VALUE;
         } else {
             return Character.isUpperCase(writtenCharacter) ? PencilConstants.UPPERCASE_DURABILITY_VALUE : PencilConstants.LOWERCASE_DURABILITY_VALUE;
