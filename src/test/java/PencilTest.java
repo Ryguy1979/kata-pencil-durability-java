@@ -49,6 +49,33 @@ class PencilTest {
     }
 
     @Test
+    void pencilStartsWithADefaultLengthOfTen() {
+        assertEquals(10, pencil.getPencilLength());
+    }
+
+    @Test
+    void sharpenRemovesOneLengthValueFromPencil() {
+        pencil.sharpen();
+        assertEquals(9, pencil.getPencilLength());
+    }
+
+    @Test
+    void sharpeningTwiceRemovesTwoLengthFromPencil() {
+        pencil.sharpen();
+        pencil.sharpen();
+        assertEquals(8, pencil.getPencilLength());
+    }
+
+    @Test
+    void sharpenPencilWithZeroLengthDoesNotAffectDurability() {
+        pencil.setPencilLength(0);
+        pencil.setPencilDurability(15000);
+        pencil.sharpen();
+
+        assertEquals(15000, pencil.getPencilDurability());
+    }
+
+    @Test
     void writingWorDForSixDurabilityPoints() {
         pencil.setPencilDurability(1);
         pencil.write(paper,"WorD ");

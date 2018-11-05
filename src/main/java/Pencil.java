@@ -1,9 +1,13 @@
 public class Pencil {
 
+
+
+    private int pencilLength;
     private int pencilDurability;
 
     Pencil() {
-        pencilDurability = DurabilityConstants.DEFAULT_PENCIL_DURABILITY;
+        pencilDurability = PencilConstants.DEFAULT_PENCIL_DURABILITY;
+        pencilLength = PencilConstants.DEFAULT_PENCIL_LENGTH;
     }
 
 //    long write(String charactersToWrite) {
@@ -12,6 +16,14 @@ public class Pencil {
 //
 //        return (lowerCount * LOWERCASE_DURABILITY_VALUE) + (upperCount * UPPERCASE_DURABILITY_VALUE);
 //    }
+
+    int getPencilLength() {
+        return pencilLength;
+    }
+
+    void setPencilLength(int pencilLength) {
+        this.pencilLength = pencilLength;
+    }
 
     int getPencilDurability() {
         return pencilDurability;
@@ -34,9 +46,9 @@ public class Pencil {
 
     private int calculateCharacterCost(Character writtenCharacter) {
         if (writtenCharacter.equals(' ')) {
-            return DurabilityConstants.WHITESPACE_DURABILITY_VALUE;
+            return PencilConstants.WHITESPACE_DURABILITY_VALUE;
         } else {
-            return Character.isUpperCase(writtenCharacter) ? DurabilityConstants.UPPERCASE_DURABILITY_VALUE : DurabilityConstants.LOWERCASE_DURABILITY_VALUE;
+            return Character.isUpperCase(writtenCharacter) ? PencilConstants.UPPERCASE_DURABILITY_VALUE : PencilConstants.LOWERCASE_DURABILITY_VALUE;
         }
     }
 
@@ -57,6 +69,9 @@ public class Pencil {
     }
 
     void sharpen() {
-        setPencilDurability(40000);
+        if (getPencilLength() != 0) {
+            setPencilDurability(40000);
+            setPencilLength(getPencilLength() - 1);
+        }
     }
 }
