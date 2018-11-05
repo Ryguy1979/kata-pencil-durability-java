@@ -15,15 +15,15 @@ class PaperTest {
 
     @Test
     void writeWordToPaper() {
-        paper.writeText("Word");
-        assertEquals("Word", paper.getText());
+        paper.writeText('W');
+        assertEquals("W", paper.getText());
     }
 
     @Test
     void writeAppendsToPreexistingText() {
         paper.setText("She sells sea shells");
-        paper.writeText("down by the sea shore");
+        paper.writeText(' ');
 
-        assertEquals("She sells sea shells down by the sea shore", paper.getText());
+        assertEquals("She sells sea shells ", paper.getText());
     }
 }

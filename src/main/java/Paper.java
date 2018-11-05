@@ -9,11 +9,11 @@ class Paper {
         return text;
     }
 
-    void writeText(String textToWrite) {
-        if (this.text == null) {
-            this.setText(textToWrite);
+    void writeText(Character textToWrite) {
+        if (text == null) {
+            text = String.valueOf(textToWrite);
         } else {
-            this.setText(String.valueOf(new StringBuilder(this.text).append(" ").append(textToWrite)));
+            text = String.valueOf(new StringBuilder(text).append(textToWrite));
         }
     }
 }
